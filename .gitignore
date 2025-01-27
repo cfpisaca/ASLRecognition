@@ -1,0 +1,13 @@
+# ASL alphabet training data directory
+asl_alphabet_train/
+
+# Python bytecode files
+__pycache__/
+
+# Virtual environment
+venv
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+
