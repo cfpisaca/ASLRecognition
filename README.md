@@ -79,10 +79,10 @@ The dataset used for training the model is the **ASL Alphabet** dataset from Kag
 
 - **Python 3.x**
 - **Packages** listed in `requirements.txt`:
-  - **mediapipe==0.8.4**
-  - **opencv-python==4.6.0.66**
-  - **tensorflow==2.9.0**
-  - **numpy==1.21.2**
+  - **mediapipe**
+  - **opencv-python**
+  - **tensorflow**
+  - **numpy**
 
 ## License
 
