@@ -2,7 +2,6 @@ import os
 import numpy as np
 import cv2 as cv
 import mediapipe as mp
-import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout#, Flaten
 from sklearn.model_selection import train_test_split
@@ -61,7 +60,7 @@ def prepare_data(data_dir, num_samples=None):
             # Process each image in the class folder
             for img_name in class_images:
                 img_path = os.path.join(class_folder, img_name)
-                image = cv2.imread(img_path) # Reads the image with OpenCV
+                image = cv.imread(img_path) # Reads the image with OpenCV
                 
                 if image is not None:
                     keypoints = extract_keypoints(image)  # MediaPipe landmarks applied to image if hand detected 

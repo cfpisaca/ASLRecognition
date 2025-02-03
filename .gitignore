@@ -1,5 +1,5 @@
 # ASL alphabet training data directory
-asl_alphabet_train/
+data/
 
 # Python bytecode files
 __pycache__/

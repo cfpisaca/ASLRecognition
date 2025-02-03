@@ -55,7 +55,7 @@ The dataset used for training the model is the **ASL Alphabet** dataset from Kag
 2. The script will:
    - Process the images in the dataset and extract the hand landmarks.
    - Split the data into training and validation sets.
-   - Build a deep learning model with two **Dense** layers and **Dropout** for regularization.
+   - Build a machine learning model with two **Dense** layers and **Dropout** for regularization.
    - Train the model on the extracted keypoints for 10 epochs.
    - Save the trained model to a file named `asl_model.h5`.
 
