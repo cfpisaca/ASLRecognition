@@ -2,7 +2,7 @@ import cv2 as cv
 import mediapipe as mp
 import numpy as np
 import tensorflow as tf
-from src.cvfpscalc import CvFpsCalc  
+from cvfpscalc import CvFpsCalc  
 
 cap = cv.VideoCapture(0) # Webcam capture 
                          # cap is used later to read frames in a loop
