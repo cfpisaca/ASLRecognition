@@ -126,4 +126,4 @@ model.fit(
     validation_data=(X_val, y_val)
 )
 
-model.save('asl_model.h5')  # Save the trained model
+model.save('model/asl_model.h5')  # Save the trained model

@@ -2,7 +2,7 @@ import cv2 as cv
 import mediapipe as mp
 import numpy as np
 import tensorflow as tf
-from cvfpscalc import CvFpsCalc  
+from src.cvfpscalc import CvFpsCalc  
 
 cap = cv.VideoCapture(0) # Webcam capture 
                          # cap is used later to read frames in a loop
@@ -24,7 +24,7 @@ hands = mp_hands.Hands(
 fps_calc = CvFpsCalc() # Imported over from another project on GitHub -> cvfpscalc.py
 
 # Load the trained model ('asl_model.h5')
-model = tf.keras.models.load_model('asl_model.h5')
+model = tf.keras.models.load_model('model/asl_model.h5')
 
 # Label mapping (letters A-Z)
 class_labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'no_gesture']
