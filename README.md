@@ -6,6 +6,7 @@ This project uses a deep learning model to recognize American Sign Language (ASL
 
 - **`main.py`**: The main script for real-time hand gesture recognition using a webcam.
 - **`train_model.py`**: A script to train a TensorFlow model to classify ASL gestures using hand landmarks.
+- **`image_processing.py`** A script to processess and apply MediaPipe / OpenCV to each image in the dataset.
 - **`cvfpscalc.py`**: A utility script to calculate and display the frames per second (FPS) of the recognition pipeline.
 - **`requirements.txt`**: A file listing the required Python packages for the project.
 
