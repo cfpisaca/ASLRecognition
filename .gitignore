@@ -10,4 +10,10 @@ venv
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
 
-
+# LaTeX 
+thesis.aux
+thesis.fdb_latexmk
+thesis.fls
+thesis.log
+thesis.synctex.gz
+thesis.tex
