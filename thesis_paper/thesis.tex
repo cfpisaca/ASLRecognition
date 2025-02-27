@@ -1,0 +1,469 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{url}
+
+\geometry{
+  left=1in,
+  right=1in,
+  top=1in,
+  bottom=1in
+}
+
+\begin{document}
+
+%-------------------------------
+%           TITLE PAGE
+%-------------------------------
+\begin{titlepage}
+\begin{center}
+
+{\Large \textbf{ASL Recognition System:\\[6pt] Bridging Gaps in Communication Accessibility}}\\[2cm]
+
+{\normalsize A Thesis Submitted in partial fulfillment of the Requirements of the\\
+Renée Crown University Honors Program at Syracuse University}\\[1.5cm]
+
+{\large \textbf{Carlo F. Pisacane}}\\[0.5cm]
+{\normalsize Candidate for Bachelor’s of Science in Computer Science\\
+and Renée Crown University Honors\\
+May 2025}\\[3cm]
+
+{\Large \textbf{Honors Thesis in Computer Science}}\\[1.5cm]
+\begin{tabbing}
+\hspace*{3cm}\= \kill
+Thesis Advisor:\> \underline{\hspace{4cm}} \\
+\> Dr.\ Nadeem Ghani, Assistant Teaching Professor\\[1cm]
+Thesis Reader:\> \underline{\hspace{4cm}} \\
+\> Dr.\ João Paulo Marum, Assistant Teaching Professor\\[1cm]
+Honors Director:\> \underline{\hspace{4cm}} \\
+\> Dr.\ Danielle Smith, Director
+\end{tabbing}
+\vfill
+
+\end{center}
+\end{titlepage}
+
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+\pagestyle{plain}
+
+
+\newpage
+\vspace*{\fill}        
+\begin{center}
+    {\small © Syracuse University 2025. All rights Reserved}
+\end{center}
+\vspace*{\fill}
+\newpage
+
+%-------------------------------
+%           ABSTRACT
+%-------------------------------
+\clearpage
+\section*{Abstract}
+\vspace{1em}
+
+\noindent
+A concise summary of your research, covering the problem (gaps in existing ASL recognition 
+systems), your proposed solution (ASL recognition tool), methodology, key findings, and
+conclusions. 
+
+\vspace{2em}
+\noindent
+\textbf{Thesis Advisor:} Nadeem Ghani \\
+\textbf{Title:} Assistant Teaching Professor, Engineering and Computer Science
+
+\newpage
+\mbox{}                
+\newpage
+
+%-------------------------------
+%       ACKNOWLEDGMENTS
+%-------------------------------
+\newpage
+\doublespacing
+\section*{Acknowledgments}
+
+Section to thank supervisors, mentors, collaborators, and supporters of the project.
+
+Future advice to Honors students
+
+
+%-------------------------------
+%       Preface
+%-------------------------------
+\newpage
+\doublespacing
+\section*{Preface}
+
+Why I chose this topic, personal insights, and what I learned, reference: CS example 
+thesis.pdf (Kyle Maiorana)
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\doublespacing
+
+%-------------------------------
+%     TABLE OF CONTENTS
+%-------------------------------
+\newpage
+\tableofcontents
+\newpage
+
+%-------------------------------
+%   CHAPTER 1 / INTRODUCTION
+%-------------------------------
+\doublespacing
+
+\newpage
+\section*{Chapter 1}
+\addcontentsline{toc}{section}{Chapter 1}
+\begin{center}
+\large \textbf{Introduction}
+\end{center}
+
+Communication is a fundamental human need, and for Deaf and hard-of-hearing individuals, 
+American Sign Language (ASL) serves as a primary mode of expression. ASL is a 
+rich and complex visual language based on hand shape, movement, and nonmanual markers
+such as facial expressions. Technology has evolved from the past to make communication
+more accessible, including captioning services, text-based messaging, and video relay services. 
+However, these solutions often rely on real-time interpreters or a shared written language, 
+which can be limiting in spontaneous, in-person conversations.
+
+In recent years, advances in computer vision and machine learning have opened new avenues
+for automated sign language recognition. Leveraging the power of advanced algorithms 
+and increasingly pervasive hardware (e.g., mobile phone cameras, webcams), engineers and
+researchers hope to create machines that can recognize ASL hand gestures in real time. While
+some progress has been made in recognizing static signs or alphabets, challenges remain, 
+especially regarding vocabulary expansion, nonmanual features, and real-world performance. 
+The present work focuses on addressing these challenges by developing a user-centered ASL 
+recognition tool that emphasizes accuracy, speed, and accessibility.
+
+\vspace{1.5em}
+\noindent
+\textbf{1.1 Research Problem}
+\addcontentsline{toc}{subsection}{1.1 Research Problem}
+\vspace{1.5em}
+
+Current ASL recognition systems have several limitations that make them impractical. 
+Some systems recognize only a limited set of signs, which restricts real-world applicability.
+Others do not account for nonmanual signs, such as facial expressions or head tilts, which
+are essential in ASL for the expression of tone, grammatical markers, and emotional context.
+Additionally, some tools also demand specialized sensors that are expensive or inconvenient, 
+thus deterring widespread use. 
+
+There is also a broad gap in designing user interfaces that are attentive to the needs and
+desires of Deaf individuals. Inaccurate calibration procedures, variability of performance 
+under changing lighting conditions, or excessive latency can lower the reliability of a system.
+These barriers all compound to inhibit the real-world deployment potential of ASL recognition
+technology in everyday communication. This thesis fills these gaps by combining an 
+effective machine learning pipeline with a user-friendly interface yet remains real-time.
+
+\vspace{1.5em}
+\noindent
+\textbf{1.2 Research Objectives}
+\addcontentsline{toc}{subsection}{1.2 Research Objectives}
+\vspace{1.5em}
+
+The overall goal of this thesis is to design a real-time ASL recognition system using
+computer vision and machine learning techniques. Specifically, the system must offer high
+recognition accuracy. The second aim is to enhance user experience by developing an accessible
+interface that is easy to install and requires minimal calibration or dedicated hardware. 
+Additionally, the system needs to overcome environmental constraints by performing optimally
+in various lighting and backgrounds so that real environments can be utilized. Finally, 
+the framework needs to be extensible for future additions of other signs, dynamic gestures,
+and nonmanual signals. By focusing on these core objectives, the system aims to be a foundation
+for broader applications in education, assistive technology, and inclusive communication 
+devices.
+
+\vspace{1.5em}
+\noindent
+\textbf{1.3 Significance of the Study}
+\addcontentsline{toc}{subsection}{1.3 Significance of the Study}
+\vspace{1.5em}
+
+This project holds the potential for shattering communication barriers among the Deaf 
+and hard-of-hearing and making meaningful resources for hearing individuals who wish to
+learn ASL. An effective real-time ASL recognition system can facilitate communication more
+effectively in public places, schools, and workplaces, particularly where access to interpreters
+may not be readily available. It can also be employed as an interactive learning tool for ASL
+learners, offering instant feedback on handshapes to facilitate language learning. The proposed
+framework can further be extended to encompass the full richness of sign languages, 
+thereby enabling future research studies. Prioritizing usability and involving Deaf/ASL 
+communities in the design, this research underscores the importance of user-centered solutions.
+Lastly, dedicated technological innovation towards ASL recognition can have the power to 
+benefit society positively by bridging communication gaps and extending accessibility.
+
+\vspace{1.5em}
+\noindent
+\subsection*{1.4 Thesis Structure}
+\addcontentsline{toc}{subsection}{1.4 Thesis Structure}
+\noindent
+This thesis is organized into five main chapters:
+
+\begin{enumerate}
+  \item \textbf{Chapter 1: Introduction}\\
+  Provides the background and context of ASL recognition, defines the research problem, outlines objectives, and explains the study’s significance.
+
+  \item \textbf{Chapter 2: Literature Review}\\
+  Examines existing ASL recognition systems, machine learning techniques, and user-centered design principles. Identifies gaps in the current research and sets the stage for the proposed approach.
+
+  \item \textbf{Chapter 3: Software and Application}\\
+  Details the methodology, including data collection, model architecture, and real-time inference pipeline. Discusses the design choices and rationale behind the system’s implementation.
+
+  \item \textbf{Chapter 4: Results}\\
+  Presents empirical findings, including model performance metrics, real-time testing results, and user feedback. Analyzes both quantitative and qualitative data.
+
+  \item \textbf{Chapter 5: Conclusion}\\
+  Summarizes key insights, highlights contributions, and suggests avenues for future work. Reflects on the system’s potential impact on accessibility and communication technologies.
+\end{enumerate}
+
+%-------------------------------
+%   CHAPTER 2 / Literature Review
+%-------------------------------
+\newpage
+\section*{Chapter 2}
+\addcontentsline{toc}{section}{Chapter 2}
+\begin{center}
+\large \textbf{Literature Review}
+\end{center}
+
+Include text here
+
+\vspace{1.5em}
+\noindent
+\textbf{2.1 }
+\addcontentsline{toc}{subsection}{2.1}
+\vspace{1.5em}
+
+Include text here
+
+%-------------------------------
+%   CHAPTER 3 / Software and Application
+%-------------------------------
+\newpage
+\section*{Chapter 3}
+\addcontentsline{toc}{section}{Chapter 3}
+\begin{center}
+\large \textbf{Software and Application}
+\end{center}
+
+Include text here
+
+\vspace{1.5em}
+\noindent
+\textbf{3.1 }
+\addcontentsline{toc}{subsection}{3.1}
+\vspace{1.5em}
+
+Include text here
+
+%-------------------------------
+%   CHAPTER 4 / Results (Analysis)
+%-------------------------------
+\newpage
+\section*{Chapter 4}
+\addcontentsline{toc}{section}{Chapter 4}
+\begin{center}
+\large \textbf{Results}
+\end{center}
+
+Include text here
+
+\vspace{1.5em}
+\noindent
+\textbf{4.1 }
+\addcontentsline{toc}{subsection}{4.1}
+\vspace{1.5em}
+
+Include text here
+
+%-------------------------------
+%   CHAPTER 5 / Conclusion
+%-------------------------------
+\newpage
+\section*{Chapter 5}
+\addcontentsline{toc}{section}{Chapter 5}
+\begin{center}
+\large \textbf{Conclusion}
+\end{center}
+
+Include text here
+
+\vspace{1.5em}
+\noindent
+\textbf{5.1 }
+\addcontentsline{toc}{subsection}{5.1}
+\vspace{1.5em}
+
+Include text here
+
+%-------------------------------
+%   BIBLIOGRAPHY
+%-------------------------------
+\clearpage
+\onehalfspacing
+
+\renewcommand{\refname}{Bibliography}
+\addcontentsline{toc}{section}{Bibliography}
+
+\begin{thebibliography}{99}
+
+% Gloves and different wearable technologies
+\bibitem{ref1}
+Stefanidis, Kiriakos, Dimitrios Konstantinidis, Thanassis Kalvourtzis,  
+Kosmas Dimitropoulos, and Petros Daras.  
+“3D technologies and applications in sign language.” 2020. 
+Available: \url{https://www.researchgate.net/publication/340966069_3D_technologies_and_applications_in_sign_language}
+
+% RNNs and LSTMs 
+\bibitem{ref2}
+C.~K.~M. Lee, K.~K.~H. Ng, C.-H. Chen, H.~C.~W. Lau, S.~Y. Chung, and T. Tsoi, 
+“American sign language recognition and training method with recurrent neural network,” 
+\textit{Expert Systems with Applications}, vol.~167, pp.~114403, 2021,  
+ISSN 0957-4174.  
+Available: \url{https://doi.org/10.1016/j.eswa.2020.114403} 
+
+% Leap motion sensor
+\bibitem{ref3}
+C.-H.~Chuan, E.~Regina, and C.~Guardino, 
+“American Sign Language Recognition Using Leap Motion Sensor,” 
+in \emph{2014 13th International Conference on Machine Learning and Applications}, 
+Detroit, MI, USA, 2014, pp.~541–544, 
+doi: \texttt{10.1109/ICMLA.2014.110}. 
+Available: \url{https://ieeexplore.ieee.org/document/7033173?arnumber=7033173}
+
+\bibitem{ref4}
+I.~Papastratis \emph{et al.}, 
+“Artificial Intelligence Technologies for Sign Language,” 
+\emph{Sensors (Basel, Switzerland)}, vol.~21, no.~17, p.~5843, Aug.~30, 2021, 
+doi: \texttt{10.3390/s21175843}.   
+Available: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8434597/}
+
+% Keras textbook
+\bibitem{ref5}
+A.~Gulli and S.~Pal, 
+\emph{Deep Learning with Keras}. 
+Packt Publishing, 2018. 
+Available: \url{https://books.google.com/books?id=20EwDwAAQBAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false}
+
+% Leap motion sensor + LSTMs
+\bibitem{ref6}
+D.~Avola, M.~Bernardi, L.~Cinque, G.~L.~Foresti, and C.~Massaroni, 
+“Exploiting Recurrent Neural Networks and Leap Motion Controller for the Recognition of Sign Language and Semaphoric Hand Gestures,” 
+\emph{IEEE Transactions on Multimedia}, vol.~21, no.~1, pp.~234--245, Jan.~2019, 
+doi: \texttt{10.1109/TMM.2018.2856094}. 
+Available: \url{https://ieeexplore.ieee.org/document/8410764}
+
+% TerpTube
+\bibitem{ref7}
+E.~Hibbard \emph{et al.}, 
+“Getting a Sign in Edgewise: User-Centered Design Considerations in Creating a Signed Language Mentoring Management System,” 
+\emph{Sign Language Studies}, vol.~20, no.~2, pp.~264--300, 2020. 
+Available: \url{https://www.jstor.org/stable/26983963}  
+
+% LSTMs
+\bibitem{ref8}
+T.~Liu, W.~Zhou, and H.~Li, 
+“Sign language recognition with long short-term memory,” 
+in \emph{2016 IEEE International Conference on Image Processing (ICIP)}, 
+Phoenix, AZ, USA, 2016, pp.~2871--2875, 
+doi: \texttt{10.1109/ICIP.2016.7532884}.  
+Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/7532884}
+
+% ML textbook
+\bibitem{ref9}
+E.~Alpaydin, 
+\emph{Introduction to Machine Learning}, 
+The MIT Press, 4th~ed., 2020.  
+Available: \url{https://books.google.com/books?id=tZnSDwAAQBAJ&printsec=frontcover#v=onepage&q&f=false}
+
+% original project
+\bibitem{ref10}
+K. Takahashi, “hand-gesture-recognition-mediapipe,” GitHub repository,  
+Available: \url{https://github.com/kinivi/hand-gesture-recognition-mediapipe} (Accessed: Feb. 26, 2025)
+
+% LSTM textbook
+\bibitem{ref11}
+S.~Hochreiter and J.~Schmidhuber, 
+“Long Short-Term Memory,” 
+in \emph{Neural Computation}, vol.~9, no.~8, pp.~1735--1780, Nov.~15, 1997, 
+doi: \texttt{10.1162/neco.1997.9.8.1735}. 
+Available: \url{https://ieeexplore.ieee.org/document/6795963}
+
+% RF sensors
+\bibitem{ref12}
+S.~Z. Gurbuz \emph{et al.}, 
+“Multi-Frequency RF Sensor Fusion for Word-Level Fluent ASL Recognition,” 
+\emph{IEEE Sensors Journal}, vol.~22, no.~12, pp.~11373--11381, Jun.~15, 2022, 
+doi: \texttt{10.1109/JSEN.2021.3078339}. [Online].  
+Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/9425571}
+
+% CNNs LSTMs
+\bibitem{ref13}
+J.~T.~S. Ru and P. Sebastian, 
+“Real-Time American Sign Language (ASL) Interpretation,” 
+in \emph{2023 2nd International Conference on Vision Towards Emerging Trends in Communication and Networking Technologies (ViTECoN)}, 
+Vellore, India, 2023, pp.~1--6, 
+doi: \texttt{10.1109/ViTECoN58111.2023.10157157}. 
+Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/10157157}
+
+% OpenCV, MediaPipe, LSTMs 
+\bibitem{ref14}
+J.~Debnath and P.~J.~I R, 
+“Real-Time Gesture Based Sign Language Recognition System,” 
+in \emph{2024 International Conference on Advances in Data Engineering and Intelligent Computing Systems (ADICS)}, 
+Chennai, India, 2024, pp.~01--06, 
+doi: \texttt{10.1109/ADICS58448.2024.10533518}.
+Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/10533518}
+
+% MSL (CLSTM / LSTM / RNN) MEDIAPIPE, OPENCV *PROF REC*
+\bibitem{ref15}
+E.~A. Borges-Galindo \emph{et al.}, 
+“Sign Language Interpreting System Using Recursive Neural Networks,” 
+\emph{Applied Sciences}, vol.~14, no.~18, Art. no. 8560, Sep.~23, 2024,  
+Available: \url{https://www.mdpi.com/2076-3417/14/18/8560}
+
+% Good analyze reference
+\bibitem{ref16}
+M.~Soundarya, M.~Yazhini, N.~Thirumala Sree, N.~Sornamalaya, and C.~Vinitha, 
+“Sign Language Recognition Using Machine Learning,” 
+in \emph{2024 International Conference on Advances in Computing, Communication and Applied Informatics (ACCAI)}, 
+Chennai, India, 2024, pp.~1--7, 
+doi: \texttt{10.1109/ACCAI61061.2024.10602025}.
+Available: \url{https://ieeexplore.ieee.org/document/10602025}
+
+% Good representation of LSTM diagram
+\bibitem{ref17}
+T.~Liu, W.~Zhou, and H.~Li, 
+“Sign language recognition with long short-term memory,” 
+in \emph{2016 IEEE International Conference on Image Processing (ICIP)}, 
+Phoenix, AZ, USA, 2016, pp.~2871--2875, 
+doi: \texttt{10.1109/ICIP.2016.7532884}. 
+Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/7532884}
+
+% Deaf info
+\bibitem{ref18}
+V. Falvo, L. P. Scatalon, and E. F. Barbosa, 
+“The Role of Technology to Teaching and Learning Sign Languages: A Systematic Mapping,” 
+in \emph{2020 IEEE Frontiers in Education Conference (FIE)}, Uppsala, Sweden, 2020, pp.~1--9, 
+doi: \texttt{10.1109/FIE44824.2020.9274169}.  
+Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/9274169}
+
+% Learn LSTMs
+\bibitem{ref19}
+C. Olah, 
+“Understanding LSTM Networks,” 
+Understanding LSTM Networks, Aug. 17, 2015. [Online].  
+Available: \url{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+
+
+\end{thebibliography}
+
+\end{document}
+
