@@ -1,1 +1,3 @@
-\contentsline {figure}{\numberline {1}{\ignorespaces MediaPipe Hands landmarks. Each point corresponds to a specific joint or fingertip.}}{7}{}%
+\contentsline {figure}{\numberline {1}{\ignorespaces MediaPipe Hands landmarks. Each point corresponds to a specific joint or fingertip.}}{8}{}%
+\contentsline {figure}{\numberline {2}{\ignorespaces An illustration of a CNN architecture depicting convolutional layers, pooling layers, and fully connected layers, highlighting the extraction of features from a hand image.}}{10}{}%
+\contentsline {figure}{\numberline {3}{\ignorespaces A diagram showing the internal structure of an LSTM cell—including input, forget, and output gates—and an unrolled LSTM network across a sequence of video frames.}}{11}{}%

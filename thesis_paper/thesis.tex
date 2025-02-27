@@ -332,7 +332,206 @@ vision-based detection using MediaPipe and OpenCV offers the optimal balance of 
 accuracy, cost-effectiveness, and ease of integration, making it the best choice for designing 
 robust, real-time ASL recognition systems that can be easily adopted in real-world contexts.
 
+%-------------------------------------------
+%   2.4 MACHINE LEARNING APPROACHES FOR GESTURE RECOGNITION
+%-------------------------------------------
 
+\vspace{1.5em}
+\noindent
+\textbf{2.4 Machine Learning Approaches for Gesture Recognition}
+\addcontentsline{toc}{subsection}{2.4 Machine Learning Approaches for Gesture Recognition}
+\vspace{1em}
+
+Advances in deep learning have been essential in enhancing sign language recognition 
+by addressing both spatial and temporal complexities. In our work and as demonstrated 
+in previous studies, a combination of Convolutional Neural Networks (CNNs), Recurrent 
+Neural Networks (RNNs), and Long Short-Term Memory (LSTM) networks has been used 
+to capture static hand features as well as the dynamic information inherent in continuous 
+gestures.
+
+\vspace{1em}
+\noindent
+\textbf{2.4.1 Convolutional Neural Networks (CNNs) for Static Sign Recognition}
+\addcontentsline{toc}{subsubsection}{2.4.1 Convolutional Neural Networks (CNNs) for Static Sign Recognition}
+\vspace{1em}
+
+CNNs excel at extracting spatial features from images or individual video frames. 
+Their layered architecture enables the learning of hierarchical representations that can 
+effectively distinguish subtle differences in hand shape and orientation. In the context of ASL 
+recognition, CNNs have been successfully used to classify isolated, static signs before further 
+processing is applied (Debnath and Joe, 2024 [3]).
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.95\textwidth]{cnn_architecture.png}
+  \caption{An illustration of a CNN architecture depicting convolutional layers, pooling layers, and fully connected layers, highlighting the extraction of features from a hand image.}
+  \label{fig:cnn_architecture}
+\end{figure}
+
+\vspace{1em}
+\noindent
+\textbf{2.4.2 Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTMs) for Dynamic Sign Recognition}
+\addcontentsline{toc}{subsubsection}{2.4.2 Recurrent Neural Networks (RNNs) and LSTMs for Dynamic Sign Recognition}
+\vspace{1em}
+
+Dynamic signs which involve motion and transitions require models that can capture 
+temporal dependencies. Traditional RNNs are naturally suited for sequential data, but 
+they often encounter difficulties such as vanishing gradients when processing long sequences 
+(Avola et al., 2019 [4]; Liu et al., 2016 [6]). LSTM networks, introduced to overcome these 
+limitations, incorporate memory cells and gating mechanisms that enable them to retain 
+and update information over extended periods (Hochreiter and Schmidhuber, 1997 [7]; Colah’s 
+Blog, 2015 [8]). These capabilities make LSTMs particularly effective for recognizing 
+continuous ASL gestures.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.85\textwidth]{lstm_architecture.png}
+  \caption{A diagram showing the internal structure of an LSTM cell—including input, forget, and output gates—and an unrolled LSTM network across a sequence of video frames.}
+  \label{fig:lstm_architecture}
+\end{figure}
+
+Hybrid architectures that combine CNNs and LSTMs have also proven effective. In 
+such systems, CNNs first extract deep features from each frame, and these features are 
+then processed by LSTMs to capture the sequential dynamics of the gesture (Papastratis 
+et al., 2021 [9]; Ru and Sebastian, 2023 [10]). This two-stage approach enhances accuracy, 
+particularly in real-world scenarios where both spatial and temporal information are crucial.
+
+\vspace{1em}
+\noindent
+\textbf{2.4.3 Handling Static vs. Dynamic Signs}
+\addcontentsline{toc}{subsubsection}{2.4.3 Handling Static vs. Dynamic Signs}
+\vspace{1em}
+
+The choice of model architecture is dictated by the nature of the sign:
+\begin{itemize}
+    \item \textbf{Static Signs:} When the sign consists of a fixed hand posture, CNNs can be employed 
+    alone to capture the necessary spatial features.
+    \item \textbf{Dynamic Signs:} For gestures that involve motion, models such as RNNs and, more 
+    effectively, LSTMs are essential. Their ability to model long-term dependencies allows 
+    them to interpret the temporal evolution of a gesture accurately. Many systems adopt 
+    a two-stage approach, first applying CNNs for frame-wise feature extraction, followed 
+    by LSTMs to model the sequential aspects of the gesture (Lee et al., 2021 [11]).
+\end{itemize}
+
+\vspace{1em}
+\noindent
+\textbf{2.4.4 Integration of Recursive Neural Network Approaches}
+\addcontentsline{toc}{subsubsection}{2.4.4 Integration of Recursive Neural Network Approaches}
+\vspace{1em}
+
+Recent work has also explored recursive neural network architectures for capturing hierarchical 
+structures in sign language gestures (Borges-Galindo et al., 2024 [12]). Although 
+our primary focus is on CNN-LSTM hybrids, recursive models offer a promising alternative 
+for handling complex information in gestures and may be considered for future 
+extensions of our system.
+
+%-------------------------------------------
+%   2.5 BASE REPOSITORY FOR IMPLEMENTATION
+%-------------------------------------------
+
+\vspace{1.5em}
+\noindent
+\textbf{2.5 Base Repository for Implementation}
+\addcontentsline{toc}{subsection}{2.5 Base Repository for Implementation}
+\vspace{1em}
+
+Our ASL recognition system builds upon the open-source repository by K. Takahashi, 
+“hand-gesture-recognition-mediapipe” [13]. This repository provides a robust baseline that 
+leverages the MediaPipe library for real-time hand and body landmark detection. By integrating 
+MediaPipe’s efficient tracking algorithms with our CNN-LSTM architecture, our 
+system extracts key spatial features and processes them in real time for accurate gesture 
+recognition.
+
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{system_pipeline.png}
+%   \caption{A block diagram depicting the overall system pipeline—from video capture and MediaPipe-based landmark extraction to CNN-based feature extraction and LSTM-based temporal classification.}
+%   \label{fig:system_pipeline}
+% \end{figure}
+
+This base repository has been instrumental in our progress, enabling rapid prototyping 
+and rigorous testing under real-world conditions.
+
+%-------------------------------------------
+%   2.6 CHALLENGES AND GAPS IN CURRENT SYSTEMS
+%-------------------------------------------
+
+\vspace{1.5em}
+\noindent
+\textbf{2.6 Challenges and Gaps in Current Systems}
+\addcontentsline{toc}{subsection}{2.6 Challenges and Gaps in Current Systems}
+\vspace{1em}
+
+Despite significant advances in ASL recognition technologies, several critical challenges 
+and gaps remain that hinder widespread adoption in real-world settings:
+
+\begin{itemize}
+    \item \textbf{Limited Vocabulary and Generalization:}  
+    Many existing systems are designed to recognize only a restricted set of signs, 
+    making it difficult to scale to larger vocabularies. This limitation often stems 
+    from insufficient training data and models that are tuned for a narrow set of gestures 
+    (Debnath and Joe, 2024 [3]). Consequently, these systems struggle to generalize across 
+    different signers or adapt to variations in signing styles.
+
+    \item \textbf{Difficulty Capturing Nonmanual Signals:}  
+    Effective sign language communication relies not only on hand gestures but also on 
+    nonmanual signals such as facial expressions and head tilts. Current approaches often 
+    neglect these critical features due to the complexities involved in accurately capturing 
+    and processing them. As a result, essential grammatical and emotional nuances are frequently 
+    lost, limiting the overall accuracy and naturalness of the interpretation 
+    (Avola et al., 2019 [4]).
+
+    \item \textbf{Poor Performance in Real-World Environments:}  
+    Many systems demonstrate high accuracy under controlled conditions; however, 
+    performance typically degrades in real-world scenarios. Factors such as variable lighting 
+    conditions, dynamic backgrounds, and ambient noise can adversely affect both the feature
+    extraction process and the robustness of the model (Liu et al., 2016 [6]). These challenges 
+    underscore the need for systems that maintain high performance in diverse and unpredictable 
+    environments.
+
+    \item \textbf{User Interface and Accessibility Shortcomings:}  
+    Beyond the technical aspects of recognition, user experience plays a pivotal role in 
+    the adoption of ASL systems. Current implementations often suffer from complex calibration 
+    procedures, unintuitive interfaces, or hardware requirements that are not easily accessible 
+    to the Deaf community. Such issues can discourage user engagement and limit the practical 
+    utility of the technology (Hibbard et al., 2020 [1]).
+\end{itemize}
+
+%-------------------------------------------
+%   2.7 CONCLUSION
+%-------------------------------------------
+
+\vspace{1.5em}
+\noindent
+\textbf{2.7 Conclusion}
+\addcontentsline{toc}{subsection}{2.7 Conclusion}
+\vspace{1em}
+
+In summary, while state-of-the-art ASL recognition systems have made commendable 
+progress, significant gaps remain, particularly in vocabulary generalization, the integration of 
+nonmanual signals, robustness in real-world conditions, and user accessibility. Our proposed 
+system addresses these issues by leveraging a hybrid CNN-LSTM architecture integrated with 
+MediaPipe for real-time, robust hand and body landmark detection. By focusing on 
+a user-centered design and optimizing performance under varying environmental conditions, 
+the system aims to offer:
+
+\begin{itemize}
+    \item \textbf{Real-Time Performance:}  
+    Ensuring quick and accurate recognition through efficient deep learning models and 
+    streamlined data processing pipelines.
+    
+    \item \textbf{Robust Detection:}  
+    Enhancing accuracy across a wide range of signs, including both manual and nonmanual 
+    signals, by employing advanced feature extraction and temporal modeling techniques.
+    
+    \item \textbf{User-Friendly Interface:}  
+    Prioritizing accessibility and ease of use, with minimal calibration requirements and 
+    an intuitive design that caters to the needs of Deaf and hard-of-hearing individuals.
+\end{itemize}
+
+This conclusion sets the stage for the subsequent methodology chapter, where we will 
+detail the system architecture, data acquisition procedures, and the experimental protocols 
+implemented to validate our approach.
 
 %-------------------------------
 %   CHAPTER 3 / Software and Application
@@ -444,22 +643,8 @@ Kosmas Dimitropoulos, and Petros Daras.
 “3D technologies and applications in sign language.” 2020. 
 Available: \url{https://www.researchgate.net/publication/340966069_3D_technologies_and_applications_in_sign_language}
 
-\bibitem{ref6}
-I.~Papastratis \emph{et al.}, 
-“Artificial Intelligence Technologies for Sign Language,” 
-\emph{Sensors (Basel, Switzerland)}, vol.~21, no.~17, p.~5843, Aug.~30, 2021, 
-doi: \texttt{10.3390/s21175843}.   
-Available: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8434597/}
-
-% Keras textbook
-\bibitem{ref7}
-A.~Gulli and S.~Pal, 
-\emph{Deep Learning with Keras}. 
-Packt Publishing, 2018. 
-Available: \url{https://books.google.com/books?id=20EwDwAAQBAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false}
-
 % LSTMs
-\bibitem{ref8}
+\bibitem{ref6}
 T.~Liu, W.~Zhou, and H.~Li, 
 “Sign language recognition with long short-term memory,” 
 in \emph{2016 IEEE International Conference on Image Processing (ICIP)}, 
@@ -467,36 +652,30 @@ Phoenix, AZ, USA, 2016, pp.~2871--2875,
 doi: \texttt{10.1109/ICIP.2016.7532884}.  
 Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/7532884}
 
-% ML textbook
-\bibitem{ref9}
-E.~Alpaydin, 
-\emph{Introduction to Machine Learning}, 
-The MIT Press, 4th~ed., 2020.  
-Available: \url{https://books.google.com/books?id=tZnSDwAAQBAJ&printsec=frontcover#v=onepage&q&f=false}
-
-% original project
-\bibitem{ref10}
-K. Takahashi, “hand-gesture-recognition-mediapipe,” GitHub repository,  
-Available: \url{https://github.com/kinivi/hand-gesture-recognition-mediapipe} (Accessed: Feb. 26, 2025)
-
 % LSTM textbook
-\bibitem{ref11}
+\bibitem{ref7}
 S.~Hochreiter and J.~Schmidhuber, 
 “Long Short-Term Memory,” 
 in \emph{Neural Computation}, vol.~9, no.~8, pp.~1735--1780, Nov.~15, 1997, 
 doi: \texttt{10.1162/neco.1997.9.8.1735}. 
 Available: \url{https://ieeexplore.ieee.org/document/6795963}
 
-% RF sensors
-\bibitem{ref12}
-S.~Z. Gurbuz \emph{et al.}, 
-“Multi-Frequency RF Sensor Fusion for Word-Level Fluent ASL Recognition,” 
-\emph{IEEE Sensors Journal}, vol.~22, no.~12, pp.~11373--11381, Jun.~15, 2022, 
-doi: \texttt{10.1109/JSEN.2021.3078339}. [Online].  
-Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/9425571}
+% Learn LSTMs
+\bibitem{ref8}
+C. Olah, 
+“Understanding LSTM Networks,” 
+Understanding LSTM Networks, Aug. 17, 2015. [Online].  
+Available: \url{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+
+\bibitem{ref9}
+I.~Papastratis \emph{et al.}, 
+“Artificial Intelligence Technologies for Sign Language,” 
+\emph{Sensors (Basel, Switzerland)}, vol.~21, no.~17, p.~5843, Aug.~30, 2021, 
+doi: \texttt{10.3390/s21175843}.   
+Available: \url{https://pmc.ncbi.nlm.nih.gov/articles/PMC8434597/}
 
 % CNNs LSTMs
-\bibitem{ref13}
+\bibitem{ref10}
 J.~T.~S. Ru and P. Sebastian, 
 “Real-Time American Sign Language (ASL) Interpretation,” 
 in \emph{2023 2nd International Conference on Vision Towards Emerging Trends in Communication and Networking Technologies (ViTECoN)}, 
@@ -504,46 +683,65 @@ Vellore, India, 2023, pp.~1--6,
 doi: \texttt{10.1109/ViTECoN58111.2023.10157157}. 
 Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/10157157}
 
-% Leap motion sensor
-\bibitem{ref14}
-C.-H.~Chuan, E.~Regina, and C.~Guardino, 
-“American Sign Language Recognition Using Leap Motion Sensor,” 
-in \emph{2014 13th International Conference on Machine Learning and Applications}, 
-Detroit, MI, USA, 2014, pp.~541–544, 
-doi: \texttt{10.1109/ICMLA.2014.110}. 
-Available: \url{https://ieeexplore.ieee.org/document/7033173?arnumber=7033173}
-
-% MSL (CLSTM / LSTM / RNN) MEDIAPIPE, OPENCV *PROF REC*
-\bibitem{ref15}
-E.~A. Borges-Galindo \emph{et al.}, 
-“Sign Language Interpreting System Using Recursive Neural Networks,” 
-\emph{Applied Sciences}, vol.~14, no.~18, Art. no. 8560, Sep.~23, 2024,  
-Available: \url{https://www.mdpi.com/2076-3417/14/18/8560}
-
-% Good analyze reference
-\bibitem{ref16}
-M.~Soundarya, M.~Yazhini, N.~Thirumala Sree, N.~Sornamalaya, and C.~Vinitha, 
-“Sign Language Recognition Using Machine Learning,” 
-in \emph{2024 International Conference on Advances in Computing, Communication and Applied Informatics (ACCAI)}, 
-Chennai, India, 2024, pp.~1--7, 
-doi: \texttt{10.1109/ACCAI61061.2024.10602025}.
-Available: \url{https://ieeexplore.ieee.org/document/10602025}
-
 % RNNs and LSTMs 
-\bibitem{ref18}
+\bibitem{ref11}
 C.~K.~M. Lee, K.~K.~H. Ng, C.-H. Chen, H.~C.~W. Lau, S.~Y. Chung, and T. Tsoi, 
 “American sign language recognition and training method with recurrent neural network,” 
 \textit{Expert Systems with Applications}, vol.~167, pp.~114403, 2021,  
 ISSN 0957-4174.  
 Available: \url{https://doi.org/10.1016/j.eswa.2020.114403} 
 
-% Learn LSTMs
-\bibitem{ref19}
-C. Olah, 
-“Understanding LSTM Networks,” 
-Understanding LSTM Networks, Aug. 17, 2015. [Online].  
-Available: \url{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+% MSL (CLSTM / LSTM / RNN) MEDIAPIPE, OPENCV *PROF REC*
+\bibitem{ref12}
+E.~A. Borges-Galindo \emph{et al.}, 
+“Sign Language Interpreting System Using Recursive Neural Networks,” 
+\emph{Applied Sciences}, vol.~14, no.~18, Art. no. 8560, Sep.~23, 2024,  
+Available: \url{https://www.mdpi.com/2076-3417/14/18/8560}
 
+% original project
+\bibitem{ref13}
+K. Takahashi, “hand-gesture-recognition-mediapipe,” GitHub repository,  
+Available: \url{https://github.com/kinivi/hand-gesture-recognition-mediapipe} (Accessed: Feb. 26, 2025)
+
+% % Keras textbook
+% \bibitem{ref14}
+% A.~Gulli and S.~Pal, 
+% \emph{Deep Learning with Keras}. 
+% Packt Publishing, 2018. 
+% Available: \url{https://books.google.com/books?id=20EwDwAAQBAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false}
+
+% % Leap motion sensor
+% \bibitem{ref15}
+% C.-H.~Chuan, E.~Regina, and C.~Guardino, 
+% “American Sign Language Recognition Using Leap Motion Sensor,” 
+% in \emph{2014 13th International Conference on Machine Learning and Applications}, 
+% Detroit, MI, USA, 2014, pp.~541–544, 
+% doi: \texttt{10.1109/ICMLA.2014.110}. 
+% Available: \url{https://ieeexplore.ieee.org/document/7033173?arnumber=7033173}
+
+% % Good analyze reference
+% \bibitem{ref16}
+% M.~Soundarya, M.~Yazhini, N.~Thirumala Sree, N.~Sornamalaya, and C.~Vinitha, 
+% “Sign Language Recognition Using Machine Learning,” 
+% in \emph{2024 International Conference on Advances in Computing, Communication and Applied Informatics (ACCAI)}, 
+% Chennai, India, 2024, pp.~1--7, 
+% doi: \texttt{10.1109/ACCAI61061.2024.10602025}.
+% Available: \url{https://ieeexplore.ieee.org/document/10602025}
+
+% % RF sensors
+% \bibitem{ref18}
+% S.~Z. Gurbuz \emph{et al.}, 
+% “Multi-Frequency RF Sensor Fusion for Word-Level Fluent ASL Recognition,” 
+% \emph{IEEE Sensors Journal}, vol.~22, no.~12, pp.~11373--11381, Jun.~15, 2022, 
+% doi: \texttt{10.1109/JSEN.2021.3078339}. [Online].  
+% Available: \url{https://ieeexplore-ieee-org.libezproxy2.syr.edu/document/9425571}
+
+% % ML textbook
+% \bibitem{ref19}
+% E.~Alpaydin, 
+% \emph{Introduction to Machine Learning}, 
+% The MIT Press, 4th~ed., 2020.  
+% Available: \url{https://books.google.com/books?id=tZnSDwAAQBAJ&printsec=frontcover#v=onepage&q&f=false}
 
 \end{thebibliography}
 
