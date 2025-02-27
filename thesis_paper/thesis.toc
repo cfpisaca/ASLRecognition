@@ -1,19 +1,19 @@
-\contentsline {section}{Chapter 1}{2}{}%
-\contentsline {subsection}{1.1 Research Problem}{2}{}%
-\contentsline {subsection}{1.2 Research Objectives}{3}{}%
-\contentsline {subsection}{1.3 Significance of the Study}{3}{}%
-\contentsline {subsection}{1.4 Thesis Structure}{4}{}%
-\contentsline {section}{Chapter 2}{5}{}%
-\contentsline {subsection}{2.1 Introduction}{5}{}%
-\contentsline {subsection}{2.2 Overview of Existing ASL Recognition Systems}{5}{}%
-\contentsline {subsubsection}{2.2.1 Computer Vision Approaches}{5}{}%
-\contentsline {subsubsection}{2.2.2 Depth Sensor Approaches}{6}{}%
-\contentsline {subsubsection}{2.2.3 Wearable Technology Approaches}{7}{}%
-\contentsline {subsection}{2.3 Summary}{7}{}%
-\contentsline {section}{Chapter 3}{8}{}%
-\contentsline {subsection}{3.1}{8}{}%
-\contentsline {section}{Chapter 4}{9}{}%
-\contentsline {subsection}{4.1}{9}{}%
-\contentsline {section}{Chapter 5}{10}{}%
-\contentsline {subsection}{5.1}{10}{}%
-\contentsline {section}{Bibliography}{11}{}%
+\contentsline {section}{Chapter 1}{3}{}%
+\contentsline {subsection}{1.1 Research Problem}{3}{}%
+\contentsline {subsection}{1.2 Research Objectives}{4}{}%
+\contentsline {subsection}{1.3 Significance of the Study}{4}{}%
+\contentsline {subsection}{1.4 Thesis Structure}{5}{}%
+\contentsline {section}{Chapter 2}{6}{}%
+\contentsline {subsection}{2.1 Introduction}{6}{}%
+\contentsline {subsection}{2.2 Overview of Existing ASL Recognition Systems}{6}{}%
+\contentsline {subsubsection}{2.2.1 Computer Vision Approaches}{6}{}%
+\contentsline {subsubsection}{2.2.2 Depth Sensor Approaches}{7}{}%
+\contentsline {subsubsection}{2.2.3 Wearable Technology Approaches}{8}{}%
+\contentsline {subsection}{2.3 Summary}{8}{}%
+\contentsline {section}{Chapter 3}{9}{}%
+\contentsline {subsection}{3.1}{9}{}%
+\contentsline {section}{Chapter 4}{10}{}%
+\contentsline {subsection}{4.1}{10}{}%
+\contentsline {section}{Chapter 5}{11}{}%
+\contentsline {subsection}{5.1}{11}{}%
+\contentsline {section}{Bibliography}{12}{}%
