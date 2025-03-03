@@ -13,15 +13,15 @@
 \contentsline {subsection}{2.4 Machine Learning Approaches for Gesture Recognition}{9}{}%
 \contentsline {subsubsection}{2.4.1 Convolutional Neural Networks (CNNs) for Static Sign Recognition}{10}{}%
 \contentsline {subsubsection}{2.4.2 Recurrent Neural Networks (RNNs) and LSTMs for Dynamic Sign Recognition}{10}{}%
-\contentsline {subsubsection}{2.4.3 Handling Static vs. Dynamic Signs}{11}{}%
-\contentsline {subsubsection}{2.4.4 Integration of Recursive Neural Network Approaches}{12}{}%
-\contentsline {subsection}{2.5 Base Repository for Implementation}{12}{}%
-\contentsline {subsection}{2.6 Challenges and Gaps in Current Systems}{12}{}%
-\contentsline {subsection}{2.7 Conclusion}{13}{}%
-\contentsline {section}{Chapter 3}{15}{}%
-\contentsline {subsection}{3.1}{15}{}%
-\contentsline {section}{Chapter 4}{16}{}%
-\contentsline {subsection}{4.1}{16}{}%
-\contentsline {section}{Chapter 5}{17}{}%
-\contentsline {subsection}{5.1}{17}{}%
-\contentsline {section}{Bibliography}{18}{}%
+\contentsline {subsubsection}{2.4.3 Handling Static vs. Dynamic Signs}{10}{}%
+\contentsline {subsubsection}{2.4.4 Integration of Recursive Neural Network Approaches}{11}{}%
+\contentsline {subsection}{2.5 Base Repository for Implementation}{11}{}%
+\contentsline {subsection}{2.6 Challenges and Gaps in Current Systems}{11}{}%
+\contentsline {subsection}{2.7 Conclusion}{12}{}%
+\contentsline {section}{Chapter 3}{14}{}%
+\contentsline {subsection}{3.1}{14}{}%
+\contentsline {section}{Chapter 4}{15}{}%
+\contentsline {subsection}{4.1}{15}{}%
+\contentsline {section}{Chapter 5}{16}{}%
+\contentsline {subsection}{5.1}{16}{}%
+\contentsline {section}{Bibliography}{17}{}%

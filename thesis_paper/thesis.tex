@@ -143,14 +143,14 @@ services, text-based messaging, and video relay services. However, these solutio
 real-time interpreters or a shared written language, which can be limiting in spontaneous, in-person 
 conversations.
 
-In recent years, advances in computer vision and machine learning have opened new avenues for 
-automated sign language recognition. Leveraging the power of advanced algorithms and increasingly 
-pervasive hardware (e.g., mobile phone cameras, webcams), engineers and researchers hope to create 
-machines that can recognize ASL hand gestures in real time. While some progress has been made in 
-recognizing static signs or alphabets, challenges remain, especially regarding vocabulary expansion, 
-nonmanual features, and real-world performance. The present work focuses on addressing these 
-challenges by developing a user-centered ASL recognition tool that emphasizes accuracy, speed, 
-and accessibility.
+In recent years, advances in computer vision and machine learning have opened new 
+avenues for automated sign language recognition. Leveraging the power of advanced algorithms 
+and increasingly pervasive hardware (e.g., mobile phone cameras, webcams), engineers and 
+researchers hope to create machines that can recognize ASL hand gestures in real time. While 
+some progress has been made in recognizing static signs or alphabets (Debnath and Joe, 2024 [3]), 
+challenges remain, especially regarding vocabulary expansion, nonmanual features, and real-world 
+performance (Falvo et al., 2020 [2]). The present work focuses on addressing these challenges by 
+developing a user-centered ASL recognition tool that emphasizes accuracy, speed, and accessibility.
 
 \vspace{1.5em}
 \noindent
@@ -164,9 +164,9 @@ account for nonmanual signs, such as facial expressions or head tilts, which are
 for the expression of tone, grammatical markers, and emotional context. Additionally, some tools 
 demand specialized sensors that are expensive or inconvenient, thus deterring widespread use.
 
-There is also a broad gap in designing user interfaces that are attentive to the needs and desires 
+There is also a broad gap in designing user interfaces that are responsive to the needs and desires 
 of Deaf individuals. Inaccurate calibration procedures, variability of performance under changing 
-lighting conditions, or excessive latency can lower the reliability of a system. These barriers 
+lighting conditions, or excessive latency can lower the usability of a system. These barriers 
 compound to inhibit the real-world deployment potential of ASL recognition technology in everyday 
 communication (Falvo et al., 2020 [2]).
 
@@ -180,8 +180,7 @@ The overall goal of this thesis is to design a real-time ASL recognition system 
 vision and machine learning techniques. Specifically, the system must offer high recognition 
 accuracy. The second aim is to enhance user experience by developing an accessible interface that 
 is easy to install and requires minimal calibration or dedicated hardware. Additionally, the system 
-needs to overcome environmental constraints by performing optimally in various lighting and 
-backgrounds so that real environments can be utilized. Finally, the framework needs to be extensible 
+needs better performance in the range of lighting and backgrounds found in real world environments. Finally, the framework needs to be extensible 
 for future additions of other signs, dynamic gestures, and nonmanual signals. By focusing on these 
 core objectives, the system aims to be a foundation for broader applications in education, assistive 
 technology, and inclusive communication devices.
@@ -343,11 +342,11 @@ robust, real-time ASL recognition systems that can be easily adopted in real-wor
 \vspace{1em}
 
 Advances in deep learning have been essential in enhancing sign language recognition 
-by addressing both spatial and temporal complexities. In our work and as demonstrated 
-in previous studies, a combination of Convolutional Neural Networks (CNNs), Recurrent 
-Neural Networks (RNNs), and Long Short-Term Memory (LSTM) networks has been used 
-to capture static hand features as well as the dynamic information inherent in continuous 
-gestures.
+by addressing both spatial and temporal complexities. In our work and as demonstrated in 
+previous studies (Papastratis et al., 2021 [9] and Ru and Sebastian, 2023 [10]), a combination 
+of Convolutional Neural Networks (CNNs), Recurrent Neural Networks (RNNs), and Long 
+Short-Term Memory (LSTM) networks has been used to capture static hand features as well 
+as the dynamic information inherent in continuous gestures.
 
 \vspace{1em}
 \noindent
@@ -361,12 +360,12 @@ effectively distinguish subtle differences in hand shape and orientation. In the
 recognition, CNNs have been successfully used to classify isolated, static signs before further 
 processing is applied (Debnath and Joe, 2024 [3]).
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.95\textwidth]{cnn_architecture.png}
-  \caption{An illustration of a CNN architecture depicting convolutional layers, pooling layers, and fully connected layers, highlighting the extraction of features from a hand image.}
-  \label{fig:cnn_architecture}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.95\textwidth]{cnn_architecture.png}
+%   \caption{An illustration of a CNN architecture depicting convolutional layers, pooling layers, and fully connected layers, highlighting the extraction of features from a hand image.}
+%   \label{fig:cnn_architecture}
+% \end{figure}
 
 \vspace{1em}
 \noindent
@@ -376,19 +375,19 @@ processing is applied (Debnath and Joe, 2024 [3]).
 
 Dynamic signs which involve motion and transitions require models that can capture 
 temporal dependencies. Traditional RNNs are naturally suited for sequential data, but 
-they often encounter difficulties such as vanishing gradients when processing long sequences 
+they often encounter difficulties when processing long input sequences 
 (Avola et al., 2019 [4]; Liu et al., 2016 [6]). LSTM networks, introduced to overcome these 
 limitations, incorporate memory cells and gating mechanisms that enable them to retain 
 and update information over extended periods (Hochreiter and Schmidhuber, 1997 [7]; Colah’s 
 Blog, 2015 [8]). These capabilities make LSTMs particularly effective for recognizing 
 continuous ASL gestures.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.85\textwidth]{lstm_architecture.png}
-  \caption{A diagram showing the internal structure of an LSTM cell—including input, forget, and output gates—and an unrolled LSTM network across a sequence of video frames.}
-  \label{fig:lstm_architecture}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[width=0.85\textwidth]{lstm_architecture.png}
+%   \caption{A diagram showing the internal structure of an LSTM cell—including input, forget, and output gates—and an unrolled LSTM network across a sequence of video frames.}
+%   \label{fig:lstm_architecture}
+% \end{figure}
 
 Hybrid architectures that combine CNNs and LSTMs have also proven effective. In 
 such systems, CNNs first extract deep features from each frame, and these features are 
