@@ -50,6 +50,7 @@ The dataset used for training the model is the **ASL Alphabet** dataset from Kag
 1. **Run the training script** to train the model:
 
    ```bash
+   python image_processing.py
    python train_model.py
    ```
 
