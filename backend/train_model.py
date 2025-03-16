@@ -27,7 +27,7 @@ if __name__ == "__main__":
         Dropout(0.5), # Sets 50% of inputs to zero, helps prevent overfitting
         Dense(64, activation='relu'), # Second dense layer
         Dropout(0.5), # Another dropout layer
-        Dense(27, activation='softmax') # Softmax outputs probability distribution across all 26 classes
+        Dense(30, activation='softmax') # Softmax outputs probability distribution across all 29 classes
     ])
 
     # Compile the model
