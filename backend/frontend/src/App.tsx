@@ -2,9 +2,14 @@ import './App.css';
 
 function App() {
   return (
-    <header>
-      <h1>ASL Recognition</h1>
-    </header>
+    <div>
+      <header>
+        <h1>ASL Recognition</h1>
+      </header>
+      <div className="video-container">
+        <img src="/video_feed" alt="Video Feed" />
+      </div>
+    </div>
   );
 }
 
