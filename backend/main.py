@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, jsonify
 import cv2 as cv
 import mediapipe as mp
 import numpy as np
@@ -173,10 +173,10 @@ def generate_frames():
         # Show FPS
         cv.putText(frame, f'FPS: {int(fps)}', (10, 30),
                    cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        # Overlay the running recognized text at the bottom of the frame
-        h, w, _ = frame.shape
-        cv.putText(frame, recognized_text, (10, h - 10),
-                   cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        # # Overlay the running recognized text at the bottom of the frame
+        # h, w, _ = frame.shape
+        # cv.putText(frame, recognized_text, (10, h - 10),
+        #            cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
         # Encode frame to JPEG
         ret, buffer = cv.imencode('.jpg', frame)
@@ -192,6 +192,16 @@ def index():
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/recognized_text')
+def recognized_text_route():
+    return jsonify({'recognized_text': recognized_text})
+
+@app.route('/clear_text', methods=['POST'])
+def clear_text():
+    global recognized_text
+    recognized_text = ""
+    return jsonify({'recognized_text': recognized_text})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

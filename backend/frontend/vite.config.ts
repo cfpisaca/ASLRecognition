@@ -6,8 +6,17 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-
       '/video_feed': {
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+        secure: false
+      },
+      '/recognized_text': {  
+        target: 'http://127.0.0.1:5000',
+        changeOrigin: true,
+        secure: false
+      },
+      '/clear_text': {  
         target: 'http://127.0.0.1:5000',
         changeOrigin: true,
         secure: false
