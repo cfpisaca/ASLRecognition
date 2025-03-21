@@ -10,10 +10,6 @@ app = Flask(__name__)
 
 cap = cv.VideoCapture(0)  # Webcam capture
                           # cap is used later to read frames in a loop
-
-# MediaPipe documentation
-# Google      # https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker
-# readthedocs # https://mediapipe.readthedocs.io/en/latest/solutions/hands.html    
     
 # Initialize MediaPipe hands model  
 mp_hands = mp.solutions.hands
@@ -25,7 +21,7 @@ hands = mp_hands.Hands(
 )
 
 # Initialize FPS calculation
-fps_calc = CvFpsCalc() # Imported over from another project on GitHub -> cvfpscalc.py
+fps_calc = CvFpsCalc() 
 
 # Load the trained model ('asl_model.h5')
 model = tf.keras.models.load_model('model/asl_model.h5')
@@ -45,34 +41,6 @@ stable_start_time = None
 # Variables for flash effect when a letter is recognized
 flash_start_time = None  # Time when flash starts
 flash_duration = 0.5     # Duration of the flash effect in seconds
-
-def extract_keypoints(image):
-    """ Extract hand keypoints from user using MediaPipe """
-    try:
-        # Revise image -> better preformance
-        image = cv.resize(image, (640, 480)) # (640, 480) is default webcam resolution
-                                             # Consistent input size will help improve speed 
-                                             # and stability of landmark detection
-
-        # Convert image to RGB spectrum
-        image_rgb = cv.cvtColor(image, cv.COLOR_BGR2RGB) # OpenCV images are by default BGR format
-        results = hands.process(image_rgb) # Process image with MediaPipe
-
-        if results.multi_hand_landmarks:
-            landmarks = results.multi_hand_landmarks[0].landmark # Get hand's landmark
-                                                                 # returns a list of 21 landmark points for a single hand detected
-                                                                 # Each landmark has an x, y, and z coordinate
-            keypoints = []
-            for landmark in landmarks:
-                keypoints.append(landmark.x)  # x-coord
-                keypoints.append(landmark.y)  # Y-coord
-                keypoints.append(landmark.z)  # Z-coord (depth)
-            return keypoints
-    except Exception as e:
-        print(f"Error processing image: {e}")
-    return None
-
-    # Expected output is a list of 63 values (21 landmarks x 3 coordinates) for an image/hand
 
 def classify_gesture(keypoints):
     """ Classify the hand gesture using the trained model. """

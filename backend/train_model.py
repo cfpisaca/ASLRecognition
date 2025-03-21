@@ -4,18 +4,18 @@ from tensorflow.keras.layers import Dense, Dropout
 from sklearn.model_selection import train_test_split
 
 # Load preprocessed data
-def load_data(train=True):
+def load_data():
     """
     Load processed data.
-    If train is True, load training data; otherwise load test data.
+    Loads training data from processed_train.pkl.
     """
-    filename = "processed_train.pkl" if train else "processed_test.pkl"
+    filename = "processed_train.pkl"
     with open(filename, "rb") as f:
         X, y, label_encoder = pickle.load(f)
     return X, y, label_encoder
 
 if __name__ == "__main__":
-    X, y, train_le = load_data(train=True)
+    X, y, train_le = load_data()
 
     # Split data into training and validation sets
     X_train, X_val, y_train, y_val = train_test_split(
@@ -53,13 +53,6 @@ if __name__ == "__main__":
     model.save('model/asl_model.h5') # Save the trained model
     print("Model training complete and saved to 'model/asl_model.h5'")
 
-    # Load test data and its label encoder 
-    X_test, y_test, test_le = load_data(train=False)
-    # Re-encode test labels using the training label encoder
-    # First, get the original string labels from the test labels
-    test_labels_str = test_le.inverse_transform(y_test)
-    # Then transform these labels using the training encoder
-    y_test_transformed = train_le.transform(test_labels_str)
-    
-    test_loss, test_accuracy = model.evaluate(X_test, y_test_transformed, verbose=0)
-    print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
+    # Evaluate model on the validation set
+    test_loss, test_accuracy = model.evaluate(X_val, y_val, verbose=0)
+    print(f"Validation Accuracy: {test_accuracy * 100:.2f}%")
