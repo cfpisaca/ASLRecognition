@@ -6,12 +6,14 @@ import tensorflow as tf
 from cvfpscalc import CvFpsCalc 
 import time
 
+# 1. Create the Flask application instance
 app = Flask(__name__)
 
+# 2. Initialize webcam capture; 'cap' will be used in a frame-reading loop
 cap = cv.VideoCapture(0)  # Webcam capture
                           # cap is used later to read frames in a loop
     
-# Initialize MediaPipe hands model  
+# 3. Initialize the MediaPipe Hands model
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(
     static_image_mode=False,
@@ -20,35 +22,88 @@ hands = mp_hands.Hands(
     min_tracking_confidence=0.5
 )
 
-# Initialize FPS calculation
+# 4. Initialize FPS (frames per second) calculator
 fps_calc = CvFpsCalc() 
 
-# Load the trained model ('asl_model.h5')
-model = tf.keras.models.load_model('model/asl_model.h5')
+# 5. Define a custom GCNLayer for loading/using the GCN model
+class GCNLayer(tf.keras.layers.Layer):
+    def __init__(self, output_dim, activation=None, **kwargs):
+        super(GCNLayer, self).__init__(**kwargs)
+        self.output_dim = output_dim
+        self.activation = tf.keras.activations.get(activation)
+        
+    def build(self, input_shape):
+        # input_shape: (batch_size, num_nodes, input_dim)
+        input_dim = input_shape[-1]
+        self.w = self.add_weight(shape=(input_dim, self.output_dim),
+                                 initializer='glorot_uniform',
+                                 trainable=True,
+                                 name='w')
+        super(GCNLayer, self).build(input_shape)
+        
+    def call(self, inputs, adj):
+        # inputs: (batch_size, num_nodes, input_dim)
+        # Multiply inputs by the weight matrix
+        x = tf.matmul(inputs, self.w)  # shape: (batch_size, num_nodes, output_dim)
+        # Propagate through the graph (adjacency multiplication)
+        x = tf.matmul(adj, x)  # shape: (batch_size, num_nodes, output_dim)
+        if self.activation is not None:
+            x = self.activation(x)
+        return x
 
-# Label mapping (letters A-Z, plus space and del, then no_gesture)
+# 6. Load all trained models (base, GCN, CNN).
+#    For the GCN model, provide the custom_objects parameter to include GCNLayer.
+model_base = tf.keras.models.load_model('model/asl_model.h5')
+model_gcn = tf.keras.models.load_model('model/asl_gcn_model.h5', custom_objects={'GCNLayer': GCNLayer})
+model_cnn = tf.keras.models.load_model('model/asl_cnn_model.h5')  # CNN on keypoints
+
+# 7. Choose model type: 'base' (simple MLP), 'gcn' (graph model), or 'cnn' (convolutional model)
+MODEL_TYPE = 'gcn'  # Change to 'gcn' or 'cnn' if needed
+
+# 8. Label mapping (letters A-Z, plus space, del, and no_gesture)
 class_labels = [
     'A','B','C','D','E','F','G','H','I','J',
     'K','L','M','N','O','P','Q','R','S','T',
     'U','V','W','X','Y','Z','del','no_gesture','space'
 ]
 
-# Global variable to hold the recognized text
+# 9. Global variables for recognized text and for stabilizing detections
 recognized_text = ""
-# Variables for stable detection
 stable_letter = None
 stable_start_time = None
-# Variables for flash effect when a letter is recognized
 flash_start_time = None  # Time when flash starts
 flash_duration = 0.5     # Duration of the flash effect in seconds
 
-def classify_gesture(keypoints):
-    """ Classify the hand gesture using the trained model. """
-    keypoints = np.array([keypoints])
-    prediction = model.predict(keypoints)
+# 10. Helper function to classify gestures using the selected model
+def classify_gesture(landmarks):
+    """ Classify the hand gesture using the selected trained model. """
+    if MODEL_TYPE == 'base':
+        # For the base model, flatten the 21 landmarks (each with x, y, z) into a 63-length vector
+        keypoints = []
+        for lm in landmarks:
+            keypoints.extend(lm)  # lm is a list: [x, y, z]
+        keypoints = np.array([keypoints])
+        prediction = model_base.predict(keypoints)
+
+    elif MODEL_TYPE == 'gcn':
+        # For the GCN model, convert landmarks into a (21, 3) array and add batch dimension -> (1, 21, 3)
+        keypoints_array = np.array(landmarks)
+        keypoints_array = np.expand_dims(keypoints_array, axis=0)
+        prediction = model_gcn.predict(keypoints_array)
+
+    elif MODEL_TYPE == 'cnn':
+        # For the CNN model on keypoints, reshape (21, 3) -> (21, 3, 1), then batch dimension -> (1, 21, 3, 1)
+        keypoints_array = np.array(landmarks)
+        keypoints_array = keypoints_array.reshape((1, 21, 3, 1))
+        prediction = model_cnn.predict(keypoints_array)
+
+    else:
+        return "no_gesture"
+
     predicted_class = np.argmax(prediction)
     return class_labels[predicted_class]
 
+# 11. Generator function to yield frames from the webcam for streaming
 def generate_frames():
     global recognized_text, stable_letter, stable_start_time, flash_start_time
     while True:
@@ -92,10 +147,13 @@ def generate_frames():
                     cv.line(frame, start_point, end_point, (0, 0, 255), 2)
 
                 # Classification
-                # Convert the 21 landmarks to the shape (63,)
+                # For the base model, we flatten the landmarks to (63,)
+                # For the GCN model, we need a (21, 3) array
+                # For the CNN model, we also form a (21, 3, 1) array
                 landmark_list = []
                 for lm in hand_landmarks.landmark:
-                    landmark_list.extend([lm.x, lm.y, lm.z])
+                    # Append as a list [x, y, z]
+                    landmark_list.append([lm.x, lm.y, lm.z])
 
                 detected_letter = classify_gesture(landmark_list)
                 if detected_letter != "no_gesture":  # or remove this check if you want to show everything
@@ -106,7 +164,7 @@ def generate_frames():
                         stable_start_time = current_time
                     else:
                         # Check if the letter has been stable for at least 1.00 seconds
-                        if current_time - stable_start_time >= 1.00:
+                        if current_time - stable_start_time >= .75:
                             # Update recognized_text based on the stable detected gesture
                             if stable_letter == "space":
                                 recognized_text += " "
@@ -153,6 +211,7 @@ def generate_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
+# 12. Define Flask routes for web interface and video feed
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -171,5 +230,6 @@ def clear_text():
     recognized_text = ""
     return jsonify({'recognized_text': recognized_text})
 
+# 13. Start the Flask app (debug=True, port=5000)
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
