@@ -51,14 +51,14 @@ class GCNLayer(tf.keras.layers.Layer):
             x = self.activation(x)
         return x
 
-# 6. Load all trained models (base, GCN, CNN).
+# 6. Load all trained models (MLP, GCN, CNN).
 #    For the GCN model, provide the custom_objects parameter to include GCNLayer.
-model_base = tf.keras.models.load_model('model/asl_model.h5')
+model_mlp = tf.keras.models.load_model('model/asl_mlp_model.h5')
 model_gcn = tf.keras.models.load_model('model/asl_gcn_model.h5', custom_objects={'GCNLayer': GCNLayer})
-model_cnn = tf.keras.models.load_model('model/asl_cnn_model.h5')  # CNN on keypoints
+model_cnn = tf.keras.models.load_model('model/asl_cnn_model.h5')  
 
-# 7. Choose model type: 'base' (simple MLP), 'gcn' (graph model), or 'cnn' (convolutional model)
-MODEL_TYPE = 'gcn'  # Change to 'gcn' or 'cnn' if needed
+# 7. Choose model type: 'mlp' (multilayer perceptron model), 'gcn' (graph model), or 'cnn' (convolutional model)
+MODEL_TYPE = 'mlp' 
 
 # 8. Label mapping (letters A-Z, plus space, del, and no_gesture)
 class_labels = [
@@ -77,13 +77,13 @@ flash_duration = 0.5     # Duration of the flash effect in seconds
 # 10. Helper function to classify gestures using the selected model
 def classify_gesture(landmarks):
     """ Classify the hand gesture using the selected trained model. """
-    if MODEL_TYPE == 'base':
+    if MODEL_TYPE == 'mlp':
         # For the base model, flatten the 21 landmarks (each with x, y, z) into a 63-length vector
         keypoints = []
         for lm in landmarks:
             keypoints.extend(lm)  # lm is a list: [x, y, z]
         keypoints = np.array([keypoints])
-        prediction = model_base.predict(keypoints)
+        prediction = model_mlp.predict(keypoints)
 
     elif MODEL_TYPE == 'gcn':
         # For the GCN model, convert landmarks into a (21, 3) array and add batch dimension -> (1, 21, 3)

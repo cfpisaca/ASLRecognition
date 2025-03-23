@@ -56,8 +56,8 @@ if __name__ == "__main__":
     )
 
     # 8. Save the trained model to disk
-    model.save('model/asl_model.h5')
-    print("Model training complete and saved to 'model/asl_model.h5'")
+    model.save('model/asl_mlp_model.h5')
+    print("Model training complete and saved to 'model/asl_mlp_model.h5'")
 
     # 9. Evaluate the model on the validation set
     test_loss, test_accuracy = model.evaluate(X_val, y_val, verbose=0)
