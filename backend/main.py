@@ -56,9 +56,10 @@ class GCNLayer(tf.keras.layers.Layer):
 model_mlp = tf.keras.models.load_model('model/asl_mlp_model.h5')
 model_gcn = tf.keras.models.load_model('model/asl_gcn_model.h5', custom_objects={'GCNLayer': GCNLayer})
 model_cnn = tf.keras.models.load_model('model/asl_cnn_model.h5')  
+model_combined = tf.keras.models.load_model('model/asl_combined_model.h5', custom_objects={'GCNLayer': GCNLayer})
 
 # 7. Choose model type: 'mlp' (multilayer perceptron model), 'gcn' (graph model), or 'cnn' (convolutional model)
-MODEL_TYPE = 'mlp' 
+MODEL_TYPE = 'combined' 
 
 # 8. Label mapping (letters A-Z, plus space, del, and no_gesture)
 class_labels = [
@@ -97,6 +98,12 @@ def classify_gesture(landmarks):
         keypoints_array = keypoints_array.reshape((1, 21, 3, 1))
         prediction = model_cnn.predict(keypoints_array)
 
+    elif MODEL_TYPE == 'combined':
+        # For the combined GCN+CNN model: shape => (1, 21, 3)
+        keypoints_array = np.array(landmarks)
+        keypoints_array = np.expand_dims(keypoints_array, axis=0)
+        prediction = model_combined.predict(keypoints_array)
+
     else:
         return "no_gesture"
 
@@ -124,7 +131,7 @@ def generate_frames():
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 # Draw the landmarks on the image
-                h, w, _ = frame.shape # _ Represents color channels (RGB), but we don't need it so _ is an unused variable, system crashes without it 
+                h, w, _ = frame.shape # _ Represents color channels (RGB)
                 hand_points = []
                 for landmark in hand_landmarks.landmark:
                     cx, cy = int(landmark.x * w), int(landmark.y * h)
@@ -147,36 +154,35 @@ def generate_frames():
                     cv.line(frame, start_point, end_point, (0, 0, 255), 2)
 
                 # Classification
-                # For the base model, we flatten the landmarks to (63,)
-                # For the GCN model, we need a (21, 3) array
-                # For the CNN model, we also form a (21, 3, 1) array
+                # For the base model: flatten to (63,)
+                # GCN: (21,3)
+                # CNN: (21,3,1)
+                # Combined: (21,3)
                 landmark_list = []
                 for lm in hand_landmarks.landmark:
                     # Append as a list [x, y, z]
                     landmark_list.append([lm.x, lm.y, lm.z])
 
                 detected_letter = classify_gesture(landmark_list)
-                if detected_letter != "no_gesture":  # or remove this check if you want to show everything
+                if detected_letter != "no_gesture":
                     current_time = time.time()
                     # If no stable letter, or if different letter detected, reset
                     if stable_letter is None or detected_letter != stable_letter:
                         stable_letter = detected_letter
                         stable_start_time = current_time
                     else:
-                        # Check if the letter has been stable for at least 1.00 seconds
-                        if current_time - stable_start_time >= .75:
-                            # Update recognized_text based on the stable detected gesture
+                        # Check if the letter has been stable for at least 0.75s
+                        if current_time - stable_start_time >= 0.85:
                             if stable_letter == "space":
                                 recognized_text += " "
                             elif stable_letter == "del":
                                 recognized_text = recognized_text[:-1]
                             else:
                                 recognized_text += stable_letter
-                            # Set flash start time for visual flash effect within the hand bounding box
                             flash_start_time = current_time
-                            # Reset stable detection so it only triggers once per gesture
                             stable_letter = None
                             stable_start_time = None
+
                     # Overlay the detected gesture near the bounding box
                     cv.putText(frame, detected_letter, (min_x, min_y - 10),
                                cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
@@ -199,10 +205,6 @@ def generate_frames():
         # Show FPS
         cv.putText(frame, f'FPS: {int(fps)}', (10, 30),
                    cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        # # Overlay the running recognized text at the bottom of the frame
-        # h, w, _ = frame.shape
-        # cv.putText(frame, recognized_text, (10, h - 10),
-        #            cv.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
         # Encode frame to JPEG
         ret, buffer = cv.imencode('.jpg', frame)
