@@ -2,4 +2,4 @@ mediapipe
 opencv-python
 tensorflow
 numpy
-flask
+scikit-learn
