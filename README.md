@@ -107,10 +107,7 @@ The dataset used for training the models is the **ASL Alphabet** dataset from Ka
 
 A PDF of the completed thesis is stored in the repository so future readers can review the full methodology, experiments, and conclusions.
 
-## Thesis Paper
-
-[ASL Recognition Thesis](thesis/thesis.pdf)
-
+[ASL Recognition Thesis](paper/thesis.pdf)
 
 ## Requirements
 
