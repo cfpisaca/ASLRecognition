@@ -46,6 +46,7 @@ The dataset used for training the models is the **ASL Alphabet** dataset from Ka
 4. **Download the ASL dataset** from Kaggle:
 
    - Go to [Kaggle ASL Alphabet Dataset](https://www.kaggle.com/datasets/grassknoted/asl-alphabet) and download the dataset.
+   - Or download the exact dataset I used on my [Google Drive](https://drive.google.com/file/d/1c-9RYeyGUHiz363893NYKFJ1eU_TCMT_/view?usp=sharing).
    - Extract the dataset and place it in the folder specified in `image_processing.py` under `train_dir`. The path should be something like:
 
      ```
@@ -101,6 +102,12 @@ The dataset used for training the models is the **ASL Alphabet** dataset from Ka
    - Split the data into training and validation sets
    - Train the respective model for 10 epochs
    - Save the model to the `model/` directory
+
+## Thesis Paper
+
+A PDF of the completed thesis is stored in the repository so future readers can review the full methodology, experiments, and conclusions.
+
+thesis/thesis.pdf
 
 ## Requirements
 
